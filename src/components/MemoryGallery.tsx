@@ -16,6 +16,16 @@ export const MemoryGallery: React.FC<MemoryGalleryProps> = ({ memories, onComple
   const isLastMemory = activeIndex === memories.length - 1;
   const currentMemory = memories[activeIndex];
 
+  // Preload all memory photos immediately for instant switching
+  React.useEffect(() => {
+    memories.forEach((mem) => {
+      if (mem.imageUrl) {
+        const img = new Image();
+        img.src = mem.imageUrl;
+      }
+    });
+  }, [memories]);
+
   const handleNext = () => {
     if (isLastMemory) {
       // Proceed to the next scene (The Birthday Cake & Candles)
@@ -64,12 +74,13 @@ export const MemoryGallery: React.FC<MemoryGalleryProps> = ({ memories, onComple
             onClick={() => setLightboxMemory(currentMemory)}
           >
             {/* Photographic Viewport */}
-            <div className="relative aspect-[16/10] sm:aspect-[4/3] w-full max-h-[220px] sm:max-h-[260px] overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#451426] to-[#200813]">
+            <div className="relative aspect-[4/3] w-full max-h-[280px] sm:max-h-[340px] overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#451426] to-[#200813]">
               {currentMemory.imageUrl ? (
                 <img
+                  key={currentMemory.imageUrl}
                   src={currentMemory.imageUrl}
                   alt={currentMemory.title}
-                  referrerPolicy="no-referrer"
+                  loading="eager"
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               ) : (
