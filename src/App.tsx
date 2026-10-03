@@ -24,10 +24,8 @@ export default function App() {
   const [experienceKey, setExperienceKey] = useState<number>(0);
 
   const handleStartMusic = () => {
-    if (!musicStarted) {
-      setMusicStarted(true);
-      romanticAudio.startMusic(BIRTHDAY_CONFIG.audio.backgroundMusicUrl);
-    }
+    setMusicStarted(true);
+    romanticAudio.startMusic(BIRTHDAY_CONFIG.audio.backgroundMusicUrl);
   };
 
   const handleRestart = () => {
@@ -35,10 +33,28 @@ export default function App() {
     restartExperience();
   };
 
-  // Clean up audio on unmount
+  // Start music immediately from the very start of the website
   useEffect(() => {
+    // 1. Attempt immediate playback on initial load
+    handleStartMusic();
+
+    // 2. In case browser blocks autoplay before first user interaction,
+    // trigger audio immediately upon any tap, click, or touch anywhere on the page
+    const triggerAudio = () => {
+      handleStartMusic();
+    };
+
+    window.addEventListener('pointerdown', triggerAudio, { passive: true });
+    window.addEventListener('touchstart', triggerAudio, { passive: true });
+    window.addEventListener('click', triggerAudio, { passive: true });
+    window.addEventListener('keydown', triggerAudio, { passive: true });
+
     return () => {
       romanticAudio.stopMusic();
+      window.removeEventListener('pointerdown', triggerAudio);
+      window.removeEventListener('touchstart', triggerAudio);
+      window.removeEventListener('click', triggerAudio);
+      window.removeEventListener('keydown', triggerAudio);
     };
   }, []);
 

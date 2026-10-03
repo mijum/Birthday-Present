@@ -46,6 +46,7 @@ export const BIRTHDAY_CONFIG: BirthdayConfig = {
       caption: "The moment I never want to forget.",
       date: "A quiet evening",
       location: "Underneath the city lights",
+      imageUrl: "/memories/memory1.jpg",
       accentColor: "#f3c1cb"
     },
     {
@@ -54,6 +55,7 @@ export const BIRTHDAY_CONFIG: BirthdayConfig = {
       caption: "Your smile, my favorite view.",
       date: "A Sunday morning",
       location: "Our favorite corner cafe",
+      imageUrl: "/memories/memory2.jpg",
       accentColor: "#e8a4b8"
     },
     {
@@ -62,6 +64,7 @@ export const BIRTHDAY_CONFIG: BirthdayConfig = {
       caption: "A little memory that means everything.",
       date: "Sunset shoreline",
       location: "By the water",
+      imageUrl: "/memories/memory3.jpg",
       accentColor: "#dfb285"
     },
     {
@@ -70,6 +73,7 @@ export const BIRTHDAY_CONFIG: BirthdayConfig = {
       caption: "One of my happiest days.",
       date: "That spontaneous getaway",
       location: "Lost in the best way",
+      imageUrl: "/memories/memory4.jpg",
       accentColor: "#d67d8a"
     },
     {
@@ -77,7 +81,8 @@ export const BIRTHDAY_CONFIG: BirthdayConfig = {
       title: "Gentle Everyday Wonders",
       caption: "The quiet moments that make my heart full.",
       date: "Every simple day with you",
-      location: "Right where we belong",
+      location: "Under our umbrella",
+      imageUrl: "/memories/memory5.jpg",
       accentColor: "#c86b7c"
     },
     {
@@ -86,6 +91,7 @@ export const BIRTHDAY_CONFIG: BirthdayConfig = {
       caption: "And a thousand more moments to come.",
       date: "The beginning of your new year",
       location: "Everywhere ahead",
+      imageUrl: "/memories/memory6.jpg",
       accentColor: "#b24d64"
     }
   ],

@@ -71,6 +71,7 @@ class RomanticAudioEngine {
         return;
       } catch (err) {
         console.warn('Custom audio playback fallback to synthesizer', err);
+        this.isMusicPlaying = false;
       }
     }
 

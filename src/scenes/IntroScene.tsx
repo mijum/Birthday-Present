@@ -31,7 +31,10 @@ export const IntroScene: React.FC<IntroSceneProps> = ({ onContinue, onUserIntera
   };
 
   return (
-    <div className="relative flex min-h-[100dvh] w-full flex-col items-center justify-between px-4 sm:px-6 pt-[max(2rem,env(safe-area-inset-top,2rem))] pb-[max(2.5rem,env(safe-area-inset-bottom,2.5rem))] text-center select-none overflow-y-auto">
+    <div
+      onClick={onUserInteraction}
+      className="relative flex min-h-[100dvh] w-full flex-col items-center justify-between px-4 sm:px-6 pt-[max(2rem,env(safe-area-inset-top,2rem))] pb-[max(2.5rem,env(safe-area-inset-bottom,2.5rem))] text-center select-none overflow-y-auto cursor-pointer"
+    >
       {/* Subtle Top Accent */}
       <motion.div
         initial={{ opacity: 0, y: -15 }}
