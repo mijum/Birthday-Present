@@ -129,17 +129,25 @@ export function useBlowDetection({ onBlowingExtinguished, candleCount = 6 }: Use
         }
         const rms = Math.sqrt(sumSquares / timeDomainData.length);
 
-        // Normalize level for UI feedback (0 to 1)
-        const reactiveLevel = Math.min(1, Math.max(0, rms * 4.5));
+        // Normalize level for UI feedback (0 to 1) with higher sensitivity
+        const reactiveLevel = Math.min(1, Math.max(0, rms * 7.5));
         setAudioLevel(reactiveLevel);
 
-        // Detect sustained turbulent air flow (blowing into mic)
-        // High RMS sustained over consecutive frames
-        const BLOW_THRESHOLD = 0.22;
-        if (rms > BLOW_THRESHOLD) {
+        // Calculate low-frequency turbulent breath wind energy
+        let lowFreqSum = 0;
+        const binCount = Math.min(12, frequencyData.length);
+        for (let i = 1; i < binCount; i++) {
+          lowFreqSum += frequencyData[i];
+        }
+        const avgLowFreq = lowFreqSum / (binCount - 1);
+
+        // Soft, gentle blow threshold (easily triggered by soft exhale or breath)
+        const isGentleBlow = rms > 0.07 || avgLowFreq > 55;
+
+        if (isGentleBlow) {
           sustainedBlowCounterRef.current += 1;
-          // ~8 consecutive frames (~130-180ms) of sustained turbulent airflow
-          if (sustainedBlowCounterRef.current >= 8) {
+          // ~3 consecutive frames (~50ms) of gentle breath triggers extinguishing
+          if (sustainedBlowCounterRef.current >= 3) {
             triggerExtinguishSequence();
             return;
           }
